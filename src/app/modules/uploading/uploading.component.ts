@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
 import {RxUnsubscribe} from '../../core/services/rx-unsubscribe';
 import {RestService} from '../../core/services/rest-service.service';
-import {takeUntil} from 'rxjs/operators';
+import {take} from 'rxjs/operators';
+import {FileService} from '../../core/services/file.service';
 
 @Component({
   selector: 'uploading',
@@ -15,6 +16,7 @@ export class UploadingComponent extends RxUnsubscribe {
   selectedFile: File;
 
   constructor(private restService: RestService,
+              private fileService: FileService,
               private cdr: ChangeDetectorRef) {
     super();
   }
@@ -34,7 +36,7 @@ export class UploadingComponent extends RxUnsubscribe {
 
   uploadImage(): void {
     this.restService.sendImage(this.selectedFile)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe();
+      .pipe(take(1))
+      .subscribe(response => this.fileService.downloadFile(response, this.selectedFile.name?.slice(0, -4)));
   }
 }
