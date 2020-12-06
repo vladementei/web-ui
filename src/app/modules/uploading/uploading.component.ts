@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
 import {RxUnsubscribe} from '../../core/services/rx-unsubscribe';
-import {Store} from '@ngxs/store';
+import {Select, Store} from '@ngxs/store';
 import {SendImage} from '../../core/state/root.actions';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'uploading',
@@ -11,6 +12,7 @@ import {SendImage} from '../../core/state/root.actions';
 })
 export class UploadingComponent extends RxUnsubscribe {
 
+  @Select(state => state.root.isUploadingLoader) loader$: Observable<boolean>;
   imageSrc: string;
   selectedFile: File;
 

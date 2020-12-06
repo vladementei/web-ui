@@ -77,3 +77,21 @@ textarea {
     margin-right: 10px;
   }
 }
+
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($background-primary-dark, 0.5);
+
+  .mat-spinner {
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+  }
+
+  .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: $text-primary-light;
+  }
+}

@@ -5,18 +5,21 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
     CommonModule,
     MatButtonModule,
     HttpClientModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     CommonModule,
     MatButtonModule,
     HttpClientModule,
     FormsModule,
+    MatProgressSpinnerModule,
     HeaderComponent,
     FooterComponent,
   ],
