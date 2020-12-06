@@ -3,6 +3,7 @@ import {RxUnsubscribe} from '../../core/services/rx-unsubscribe';
 import abcjs from 'abcjs';
 import * as midiParser from 'midi-parser-js';
 import * as soundFont from 'soundfont-player';
+import {Store} from '@ngxs/store';
 
 @Component({
   selector: 'animation',
@@ -23,11 +24,13 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
   private selectedMidiFile: File;
 
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cdr: ChangeDetectorRef,
+              private store: Store) {
     super();
   }
 
   ngOnInit(): void {
+    this.isMobileView = this.store.selectSnapshot(state => state.root.isEmbedded);
     this.music = this.updateMusicSheetToView('G4 c4 d2 d2 d2 B2 A4 A4 A4 d4 |\n' +
       ' d2 e2 e2 c2 B4 G4 B4 e4 e2 f2 e2 e2 |\n' +
       ' B4 G2 G2 d2 B4 c4 |\n' +

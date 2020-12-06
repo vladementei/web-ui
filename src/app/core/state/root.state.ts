@@ -1,16 +1,18 @@
 import {Action, NgxsOnInit, State, StateContext, Store} from '@ngxs/store';
 import {Injectable} from '@angular/core';
-import {SendImage} from './root.actions';
+import {SendImage, SetEmbedded} from './root.actions';
 import {RestService} from '../services/rest-service.service';
 import {finalize, take} from 'rxjs/operators';
 import {FileService} from '../services/file.service';
 
 export interface RootStateModel {
-  isUploadingLoader: boolean
+  isUploadingLoader: boolean;
+  isEmbedded: boolean;
 }
 
 export const defaultRootState: RootStateModel = {
   isUploadingLoader: false,
+  isEmbedded: false,
 }
 
 @State<RootStateModel>({
@@ -41,6 +43,13 @@ export class RootState implements NgxsOnInit {
             ctx.patchState({isUploadingLoader: false});
           }))
         .subscribe((response) => this.fileService.downloadFile(response, action.file.name?.slice(0, -4)));
+    }
+  }
+
+  @Action(SetEmbedded)
+  setEmbedded(ctx: StateContext<RootStateModel>, action: SetEmbedded): void {
+    if (ctx.getState().isEmbedded !== !!action.isEmbedded) {
+      ctx.patchState({isEmbedded: !!action.isEmbedded});
     }
   }
 }

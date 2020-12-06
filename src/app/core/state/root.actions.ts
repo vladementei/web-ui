@@ -3,3 +3,9 @@ export class SendImage {
   constructor(public file: File) {
   }
 }
+export class SetEmbedded {
+  static readonly type = '[Root] set embedded'
+  constructor(public isEmbedded: boolean) {
+  }
+}
+
