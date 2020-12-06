@@ -69,6 +69,17 @@ textarea {
 .content-wrapper {
   height: calc(100% - 100px);
 
+  &.embedded {
+    height: 100%;
+    display: flex;
+
+    animation {
+      height: fit-content;
+      margin-top: auto;
+      margin-bottom: auto;
+    };
+  }
+
   main, uploading, animation {
     display: flex;
     height: 100%;
