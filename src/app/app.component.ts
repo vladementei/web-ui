@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {RxUnsubscribe} from './core/services/rx-unsubscribe';
+import {RestService} from './core/services/rest-service.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,8 @@ import {RxUnsubscribe} from './core/services/rx-unsubscribe';
 })
 export class AppComponent extends RxUnsubscribe {
 
-  constructor() {
+  constructor(private restService: RestService) {
     super();
+    this.restService.updateServerUrls();
   }
 }
