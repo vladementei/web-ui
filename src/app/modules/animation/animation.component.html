@@ -1,0 +1,35 @@
+<div class="animation">
+  <div>
+<!--    <input type="file"-->
+<!--           accept="audio/mid"-->
+<!--           (change)="uploadMidi($event.target.files[0])"/>-->
+  </div>
+  <div class="actions">
+    <div class="action-wrapper" (click)="animate()">
+      <img class="control-button"
+           src="assets/img/play-begin.svg" alt="Animate">
+    </div>
+    <div *ngIf="isAnimationWorks !== undefined"
+         (click)="pause()"
+         class="action-wrapper">
+      <img class="control-button"
+           [src]="'assets/img/' + (isAnimationWorks ? 'pause' : 'play') + '.svg'"
+           [alt]="isAnimationWorks ? 'Pause' : 'Resume'">
+    </div>
+  </div>
+  <div class="music-sheet-wrapper">
+    <div #musicSheet id="musicSheet" class="music-sheet"></div>
+  </div>
+  <div class="music-editor">
+    	<textarea name="musicInput" id="musicInput" cols="80" rows="8"
+                (keydown)="isMobileView ? onMusicChange() : null">
+        {{this.music}}
+      </textarea>
+<!--    <div>-->
+<!--      <audio controls>-->
+<!--        <source src="/static/bad_romanse.mp3" type="audio/mp3">-->
+<!--      </audio>-->
+<!--    </div>-->
+  </div>
+  <div id="warnings"></div>
+</div>

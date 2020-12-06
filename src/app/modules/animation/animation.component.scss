@@ -1,0 +1,67 @@
+@import "src/assets/themes/styles.scss";
+
+.animation {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  width: 100%;//added after redesign
+
+  .actions {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    text-align: center;
+    display: flex;
+    margin-bottom: 10px;
+
+    .action-wrapper {
+      width: 40px;
+      padding: 8px 8px 8px 10px;
+      border-radius: 10px;
+      border: 2px solid $border-primary-light;
+      display: flex;
+      cursor: pointer;
+      opacity: 0.9;
+
+      .control-button {
+        height: 20px;
+        margin: 0 auto;
+      }
+
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+
+      &:hover {
+        cursor: pointer;
+        opacity: 1.0;
+      }
+    }
+  }
+
+  .music-sheet-wrapper {
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+
+  .music-sheet {
+    background-color: $background-primary-light;
+    border-radius: 10px;
+    text-align: center;
+    width: min-content;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .music-editor {
+    text-align: center;
+
+    textarea {
+      visibility: hidden; //comment this line in case you need to see editor
+      height: 0; //comment this line in case you need to see editor
+    }
+  }
+}
+
+

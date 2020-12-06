@@ -1,0 +1,79 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "assets/themes/styles";
+
+html, body {
+  height: 100vh;
+  overflow-y: hidden;
+  margin: 0;
+}
+
+body {
+  text-align: center;
+  background-image: url("./assets/img/background.jpg");
+  background-size: cover;
+}
+
+html {
+  background-color: $background-primary-light;
+}
+
+input, a, button.mat-button {
+  text-decoration: none;
+  color: $text-primary-dark;
+  border-radius: 15px;
+  background-color: $input-primary-light;
+  padding: 10px 20px;
+  margin: 0 30px;
+  border-width: 0;
+}
+
+input:hover, a:hover, button:hover {
+  background-color: $input-hover-primary-light;
+}
+
+input:focus, button:focus {
+  outline: 0;
+}
+
+textarea {
+  resize: none;
+  text-align: center;
+}
+
+.abcjs-cursor.cursor {
+  background-color: $cursor-primary-light;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+ // background: $background-primary-dark;
+  margin: 20px 0;
+}
+
+::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb:hover {
+  background: $background-primary-light;
+  border-radius: 10px;
+}
+
+
+.d-flex {
+  display: flex;
+}
+
+
+.content-wrapper {
+  height: calc(100% - 100px);
+
+  main, uploading, animation {
+    display: flex;
+    height: 100%;
+    overflow-y: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
