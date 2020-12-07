@@ -19,6 +19,7 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
   timingCallbacks;
   isAnimationWorks: boolean = undefined;
   music: string;
+  selectedNote;
   cursorScroller: number;
   isMobileView: boolean = false;
   private selectedMidiFile: File;
@@ -41,6 +42,15 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
 
     const abcjsParams: any = {
       add_classes: true,
+      dragging: true,
+      clickListener: (abcelem, tuneNumber, classes, analysis, drag, mouseEvent) => {
+        console.log(abcelem, tuneNumber, classes, analysis, drag, mouseEvent);
+        if (this.selectedNote === document.getElementsByClassName(classes)[0]) {
+          document.getElementsByClassName(classes)[0].setAttribute('fill', '#000000');
+        } else {
+          this.selectedNote = document.getElementsByClassName(classes)[0];
+        }
+      }
     }
     if (this.isMobileView) {
       abcjsParams.staffwidth = 80000;
