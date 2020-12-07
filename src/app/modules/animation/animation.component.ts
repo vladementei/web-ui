@@ -165,5 +165,6 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
     this.music = this.music.slice(0, this.selectedNote.startChar).trim() + ' ' + this.newNoteValueControl.value + ' ' + this.music.slice(this.selectedNote.endChar).trim();
     this.musicInput.nativeElement.value = this.music;
     this.musicInput.nativeElement.__zone_symbol__ON_PROPERTYmouseup();
+    this.selectedNoteView = null;
   }
 }
