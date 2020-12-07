@@ -15,6 +15,7 @@ import {FormControl, Validators} from '@angular/forms';
 export class AnimationComponent extends RxUnsubscribe implements OnInit {
 
   @ViewChild('musicSheet') musicSheet;
+  @ViewChild('musicInput') musicInput;
   musicSheetWidth = 700;
   musicEditor;
   timingCallbacks;
@@ -23,6 +24,7 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
   newNoteValueControl = new FormControl('', [Validators.required, Validators.pattern(/[a-gA-G][0-9]/), Validators.maxLength(2)]);
   music: string;
   selectedNote;
+  selectedNoteView;
   cursorScroller: number;
   isMobileView: boolean = false;
   private selectedMidiFile: File;
@@ -48,11 +50,14 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
       dragging: true,
       clickListener: (abcelem, tuneNumber, classes, analysis, drag, mouseEvent) => {
         console.log(abcelem, tuneNumber, classes, analysis, drag, mouseEvent);
-        if (this.selectedNote === document.getElementsByClassName(classes)[0]) {
+        if (this.selectedNoteView === document.getElementsByClassName(classes)[0]) {
           document.getElementsByClassName(classes)[0].setAttribute('fill', '#000000');
+          this.selectedNoteView = null;
           this.selectedNote = null;
+          this.cancelEditor();
         } else {
-          this.selectedNote = document.getElementsByClassName(classes)[0];
+          this.selectedNoteView = document.getElementsByClassName(classes)[0];
+          this.selectedNote = abcelem;
         }
         this.newNoteValueControl.setValue(this.music.slice(abcelem.startChar, abcelem?.endChar)?.trim() || '');
         this.cdr.detectChanges();
@@ -157,6 +162,8 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
 
   saveChanges(): void {
     this.cancelEditor();
-    console.log(this.newNoteValueControl.value);
+    this.music = this.music.slice(0, this.selectedNote.startChar).trim() + ' ' + this.newNoteValueControl.value + ' ' + this.music.slice(this.selectedNote.endChar).trim();
+    this.musicInput.nativeElement.value = this.music;
+    this.musicInput.nativeElement.__zone_symbol__ON_PROPERTYmouseup();
   }
 }

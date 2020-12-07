@@ -21,7 +21,7 @@
     <div #musicSheet id="musicSheet" class="music-sheet"></div>
   </div>
   <div class="actions">
-    <div *ngIf="selectedNote && !this.isEditing" class="action-wrapper" (click)="isEditing = true">
+    <div *ngIf="selectedNoteView && !this.isEditing" class="action-wrapper" (click)="isEditing = true; newNoteValueControl.setValue(this.music.slice(selectedNote?.startChar, selectedNote?.endChar)?.trim() || '');">
       <img class="control-button"
            src="assets/img/edit.svg" alt="Edit">
     </div>
@@ -46,7 +46,7 @@
     </ng-container>
   </div>
   <div class="music-editor">
-    	<textarea name="musicInput" id="musicInput" cols="80" rows="8"
+    	<textarea #musicInput name="musicInput" id="musicInput" cols="80" rows="8"
                 (keydown)="isMobileView ? onMusicChange() : null">
         {{this.music}}
       </textarea>
