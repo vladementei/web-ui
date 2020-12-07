@@ -152,8 +152,10 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
 
   onMusicChange() {
     this.cdr.detectChanges();
-    this.updateMusicSheetWidth();
-    this.cdr.detectChanges();
+    setTimeout(() => {
+      this.updateMusicSheetWidth();
+      this.cdr.detectChanges();
+    }, 400);
   }
 
   cancelEditor(): void {
@@ -166,5 +168,8 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
     this.musicInput.nativeElement.value = this.music;
     this.musicInput.nativeElement.__zone_symbol__ON_PROPERTYmouseup();
     this.selectedNoteView = null;
+    if (this.isMobileView) {
+      this.onMusicChange();
+    }
   }
 }
