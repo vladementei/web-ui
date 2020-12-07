@@ -16,6 +16,10 @@
            [src]="'assets/img/' + (isAnimationWorks ? 'pause' : 'play') + '.svg'"
            [alt]="isAnimationWorks ? 'Pause' : 'Resume'">
     </div>
+    <div *ngIf="selectedNote" class="action-wrapper" (click)="null">
+      <img class="control-button"
+           src="assets/img/edit.svg" alt="Edit">
+    </div>
   </div>
   <div class="music-sheet-wrapper">
     <div #musicSheet id="musicSheet" class="music-sheet"></div>

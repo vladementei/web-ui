@@ -47,9 +47,11 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
         console.log(abcelem, tuneNumber, classes, analysis, drag, mouseEvent);
         if (this.selectedNote === document.getElementsByClassName(classes)[0]) {
           document.getElementsByClassName(classes)[0].setAttribute('fill', '#000000');
+          this.selectedNote = null;
         } else {
           this.selectedNote = document.getElementsByClassName(classes)[0];
         }
+        this.cdr.detectChanges();
       }
     }
     if (this.isMobileView) {
