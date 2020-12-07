@@ -4,6 +4,7 @@ import abcjs from 'abcjs';
 import * as midiParser from 'midi-parser-js';
 import * as soundFont from 'soundfont-player';
 import {Store} from '@ngxs/store';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'animation',
@@ -18,6 +19,8 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
   musicEditor;
   timingCallbacks;
   isAnimationWorks: boolean = undefined;
+  isEditing: boolean = false;
+  newNoteValueControl = new FormControl('', [Validators.required, Validators.pattern(/[a-gA-G][0-9]/), Validators.maxLength(2)]);
   music: string;
   selectedNote;
   cursorScroller: number;
@@ -51,6 +54,7 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
         } else {
           this.selectedNote = document.getElementsByClassName(classes)[0];
         }
+        this.newNoteValueControl.setValue(this.music.slice(abcelem.startChar, abcelem?.endChar)?.trim() || '');
         this.cdr.detectChanges();
       }
     }
@@ -145,5 +149,14 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
     this.cdr.detectChanges();
     this.updateMusicSheetWidth();
     this.cdr.detectChanges();
+  }
+
+  cancelEditor(): void {
+    this.isEditing = false;
+  }
+
+  saveChanges(): void {
+    this.cancelEditor();
+    console.log(this.newNoteValueControl.value);
   }
 }

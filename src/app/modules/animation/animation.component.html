@@ -16,13 +16,34 @@
            [src]="'assets/img/' + (isAnimationWorks ? 'pause' : 'play') + '.svg'"
            [alt]="isAnimationWorks ? 'Pause' : 'Resume'">
     </div>
-    <div *ngIf="selectedNote" class="action-wrapper" (click)="null">
-      <img class="control-button"
-           src="assets/img/edit.svg" alt="Edit">
-    </div>
   </div>
   <div class="music-sheet-wrapper">
     <div #musicSheet id="musicSheet" class="music-sheet"></div>
+  </div>
+  <div class="actions">
+    <div *ngIf="selectedNote && !this.isEditing" class="action-wrapper" (click)="isEditing = true">
+      <img class="control-button"
+           src="assets/img/edit.svg" alt="Edit">
+    </div>
+
+    <ng-container *ngIf="this.isEditing">
+      <div class="action-wrapper" (click)="cancelEditor()">
+        <img class="control-button"
+             src="assets/img/cross.png" alt="Save">
+      </div>
+
+      <div class="action-editor">
+        <input [formControl]="newNoteValueControl"
+               type="text">
+      </div>
+
+      <div class="action-wrapper" style="padding: 0; border: 0; width: auto; min-width: 62px">
+        <div *ngIf="newNoteValueControl.valid" class="action-wrapper" (click)="saveChanges()">
+          <img class="control-button"
+               src="assets/img/tick.png" alt="Cancel">
+        </div>
+      </div>
+    </ng-container>
   </div>
   <div class="music-editor">
     	<textarea name="musicInput" id="musicInput" cols="80" rows="8"
