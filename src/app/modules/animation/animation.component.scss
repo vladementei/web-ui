@@ -4,7 +4,7 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
-  width: 100%;//added after redesign
+  width: 100%; //added after redesign
 
   .actions {
     margin-left: auto;
@@ -107,11 +107,41 @@
 
   .file-processor {
     padding-left: 7px !important;
+    display: grid !important;
+    color: $background-primary-light;
 
     .fa {
       color: $background-primary-light;
       opacity: 0.9;
       font-size: 20px;
+    }
+
+    &-title {
+      display: none;
+    }
+
+    &._big {
+      width: auto !important;
+      background-color: $background-primary-light;
+      min-width: 175px;
+
+      .file-processor-title {
+        margin-top: 10px;
+        font-size: 20px;
+        opacity: 1.0;
+        color: $background-primary-dark;
+        display: block;
+      }
+
+      .fa {
+        font-size: 100px;
+        color: $background-primary-dark;
+        height: auto !important;
+      }
+
+      &:not(:last-child) {
+        margin-right: 60px !important;
+      }
     }
 
     input {
@@ -120,6 +150,15 @@
       visibility: hidden;
       width: 0;
       height: 0;
+    }
+  }
+
+  &._center-align {
+    display: flex;
+
+    .actions {
+      margin-top: auto;
+      margin-bottom: auto;
     }
   }
 }

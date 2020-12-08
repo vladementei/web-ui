@@ -1,8 +1,12 @@
-<div class="animation">
+<div class="animation" [ngClass]="{'_center-align': !music}">
 
-  <div class="actions jus-cont">
-    <div class="file-processor action-wrapper" (click)="upload.click()">
-      <i class="fa fas fa-file-upload control-button" ></i>
+  <div class="actions"
+       [ngClass]="{'jus-cont': !!music}">
+    <div class="file-processor action-wrapper"
+         [ngClass]="{'_big': !music}"
+         (click)="upload.click()">
+      <i class="fa fas fa-file-upload control-button"></i>
+      <div class="file-processor-title">Upload MIDI</div>
       <input #upload
              type="file"
              accept="audio/mid"
@@ -37,8 +41,11 @@
       </div>
     </div>
 
-    <div class="file-processor action-wrapper" (click)="download.click()">
+    <div class="file-processor action-wrapper"
+         [ngClass]="{'_big': !music}"
+         (click)="download.click()">
       <i class="fa fas fa-file-download control-button"></i>
+      <div class="file-processor-title">Download MIDI</div>
       <input #download
              type="file"
              accept="audio/mid"
