@@ -119,8 +119,14 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
     this.selectedMidiFile = file;
   }
 
-  downloadMidi(file: File): void {
-
+  downloadMidi(): void {
+    const midiString = 'hello I am midi file';//TODO real midi file
+    const blob = new Blob([midiString], {type: 'audio/mid'});
+    const link = document.createElement('a');
+    link.download = 'music';
+    link.href = window.URL.createObjectURL(blob);
+    link.click();
+    console.log('download midi');
   }
 
   animate(): void {

@@ -43,13 +43,9 @@
 
     <div class="file-processor action-wrapper"
          [ngClass]="{'_big': !music}"
-         (click)="download.click()">
+         (click)="downloadMidi()">
       <i class="fa fas fa-file-download control-button"></i>
       <div class="file-processor-title">Download MIDI</div>
-      <input #download
-             type="file"
-             accept="audio/mid"
-             (change)="downloadMidi($event.target.files[0])"/>
     </div>
   </div>
   <ng-container *ngIf="music">
