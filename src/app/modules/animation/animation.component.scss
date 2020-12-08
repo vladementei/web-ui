@@ -14,6 +14,11 @@
     display: flex;
     margin-bottom: 10px;
 
+    &.jus-cont {
+      justify-content: space-between;
+      width: 100%;
+    }
+
     .action-editor {
       input {
         width: 26px;
@@ -97,6 +102,24 @@
     textarea {
       visibility: hidden; //comment this line in case you need to see editor
       height: 0; //comment this line in case you need to see editor
+    }
+  }
+
+  .file-processor {
+    padding-left: 7px !important;
+
+    .fa {
+      color: $background-primary-light;
+      opacity: 0.9;
+      font-size: 20px;
+    }
+
+    input {
+      margin: 0;
+      padding: 0;
+      visibility: hidden;
+      width: 0;
+      height: 0;
     }
   }
 }

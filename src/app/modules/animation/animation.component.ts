@@ -119,6 +119,10 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
     this.selectedMidiFile = file;
   }
 
+  downloadMidi(file: File): void {
+
+  }
+
   animate(): void {
     this.stopCursorScroller();
     if (this.timingCallbacks) {

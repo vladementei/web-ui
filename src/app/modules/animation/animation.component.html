@@ -1,12 +1,15 @@
 <div class="animation">
-  <div>
-<!--    <input type="file"-->
-<!--           accept="audio/mid"-->
-<!--           (change)="uploadMidi($event.target.files[0])"/>-->
-  </div>
 
-  <ng-container *ngIf="music">
-    <div class="actions">
+  <div class="actions jus-cont">
+    <div class="file-processor action-wrapper" (click)="upload.click()">
+      <i class="fa fas fa-file-upload control-button" ></i>
+      <input #upload
+             type="file"
+             accept="audio/mid"
+             (change)="uploadMidi($event.target.files[0])"/>
+    </div>
+
+    <div *ngIf="music" class="d-flex">
       <div class="action-wrapper" (click)="animate()">
         <img class="control-button"
              src="assets/img/play-begin.svg" alt="Animate">
@@ -33,6 +36,16 @@
              (click)="selectedInstrument = instruments.GUITAR">
       </div>
     </div>
+
+    <div class="file-processor action-wrapper" (click)="download.click()">
+      <i class="fa fas fa-file-download control-button"></i>
+      <input #download
+             type="file"
+             accept="audio/mid"
+             (change)="downloadMidi($event.target.files[0])"/>
+    </div>
+  </div>
+  <ng-container *ngIf="music">
     <div class="music-sheet-wrapper">
       <div #musicSheet id="musicSheet" class="music-sheet"></div>
     </div>
