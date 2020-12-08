@@ -77,6 +77,8 @@ textarea {
       height: fit-content;
       margin-top: auto;
       margin-bottom: auto;
+      width: 100%;//TODO think how to do better
+      overflow-x: hidden;//
     };
   }
 
