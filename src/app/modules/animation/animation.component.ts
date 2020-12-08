@@ -120,6 +120,11 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
               player.play(note);
             });
           }
+        } else {
+          console.log('end');
+          this.isAnimationWorks = undefined;
+          this.stopCursorScroller();
+          this.cdr.detectChanges();
         }
       }
     });
