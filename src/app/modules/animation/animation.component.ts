@@ -45,6 +45,23 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
   }
 
   ngOnInit(): void {
+    this.init();
+  }
+
+  init(): void {
+    console.log('init');
+
+    this.isAnimationWorks = undefined;
+    this.isEditing = false;
+    this.newNoteValueControl.setValue('');
+    this.music = null;
+    this.selectedNote = null;
+    this.selectedNoteView = null;
+
+    this.stopCursorScroller();
+    if (this.timingCallbacks) {
+      this.timingCallbacks.stop();
+    }
     this.isMobileView = this.store.selectSnapshot(state => state.root.isEmbedded);
     this.music = this.updateMusicSheetToView('G4 c4 d2 d2 d2 B2 A4 A4 A4 d4 |\n' +
       ' d2 e2 e2 c2 B4 G4 B4 e4 e2 f2 e2 e2 |\n' +
@@ -71,7 +88,7 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
         this.newNoteValueControl.setValue(this.music.slice(abcelem.startChar, abcelem?.endChar)?.trim() || '');
         this.cdr.detectChanges();
       }
-    }
+    };
     if (this.isMobileView) {
       abcjsParams.staffwidth = 80000;
     }
@@ -134,7 +151,7 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
 
     if (this.isMobileView) {
       const cursor = document.getElementsByClassName('abcjs-cursor cursor')[0];
-      this.cursorScroller = window.setInterval(() => cursor.scrollIntoView({behavior: 'smooth', inline: "center"}), 500);
+      this.cursorScroller = window.setInterval(() => cursor.scrollIntoView({behavior: 'smooth', inline: 'center'}), 500);
     }
   }
 

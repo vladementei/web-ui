@@ -4,71 +4,69 @@
 <!--           accept="audio/mid"-->
 <!--           (change)="uploadMidi($event.target.files[0])"/>-->
   </div>
-  <div class="actions">
-    <div class="action-wrapper" (click)="animate()">
-      <img class="control-button"
-           src="assets/img/play-begin.svg" alt="Animate">
-    </div>
-    <div *ngIf="isAnimationWorks !== undefined"
-         (click)="pause()"
-         class="action-wrapper">
-      <img class="control-button"
-           [src]="'assets/img/' + (isAnimationWorks ? 'pause' : 'play') + '.svg'"
-           [alt]="isAnimationWorks ? 'Pause' : 'Resume'">
-    </div>
-    <div class="action-wrapper instrument-wrapper">
-      <img class="control-button instrument"
-           src="assets/img/piano.svg" alt="Piano"
-           [ngClass]="{'_selected': selectedInstrument === instruments.PIANO}"
-           (click)="selectedInstrument = instruments.PIANO">
-      <img class="control-button instrument"
-           src="assets/img/violin.svg" alt="Violin"
-           [ngClass]="{'_selected': selectedInstrument === instruments.VIOLIN}"
-           (click)="selectedInstrument = instruments.VIOLIN">
-      <img class="control-button instrument"
-           src="assets/img/guitar.svg" alt="Guitar"
-           [ngClass]="{'_selected': selectedInstrument === instruments.GUITAR}"
-           (click)="selectedInstrument = instruments.GUITAR">
-    </div>
-  </div>
-  <div class="music-sheet-wrapper">
-    <div #musicSheet id="musicSheet" class="music-sheet"></div>
-  </div>
-  <div class="actions">
-    <div *ngIf="selectedNoteView && !this.isEditing" class="action-wrapper" (click)="isEditing = true; newNoteValueControl.setValue(this.music.slice(selectedNote?.startChar, selectedNote?.endChar)?.trim() || '');">
-      <img class="control-button"
-           src="assets/img/edit.svg" alt="Edit">
-    </div>
 
-    <ng-container *ngIf="this.isEditing">
-      <div class="action-wrapper" (click)="cancelEditor()">
+  <ng-container *ngIf="music">
+    <div class="actions">
+      <div class="action-wrapper" (click)="animate()">
         <img class="control-button"
-             src="assets/img/cross.png" alt="Save">
+             src="assets/img/play-begin.svg" alt="Animate">
+      </div>
+      <div *ngIf="isAnimationWorks !== undefined"
+           (click)="pause()"
+           class="action-wrapper">
+        <img class="control-button"
+             [src]="'assets/img/' + (isAnimationWorks ? 'pause' : 'play') + '.svg'"
+             [alt]="isAnimationWorks ? 'Pause' : 'Resume'">
+      </div>
+      <div class="action-wrapper instrument-wrapper">
+        <img class="control-button instrument"
+             src="assets/img/piano.svg" alt="Piano"
+             [ngClass]="{'_selected': selectedInstrument === instruments.PIANO}"
+             (click)="selectedInstrument = instruments.PIANO">
+        <img class="control-button instrument"
+             src="assets/img/violin.svg" alt="Violin"
+             [ngClass]="{'_selected': selectedInstrument === instruments.VIOLIN}"
+             (click)="selectedInstrument = instruments.VIOLIN">
+        <img class="control-button instrument"
+             src="assets/img/guitar.svg" alt="Guitar"
+             [ngClass]="{'_selected': selectedInstrument === instruments.GUITAR}"
+             (click)="selectedInstrument = instruments.GUITAR">
+      </div>
+    </div>
+    <div class="music-sheet-wrapper">
+      <div #musicSheet id="musicSheet" class="music-sheet"></div>
+    </div>
+    <div class="actions">
+      <div *ngIf="selectedNoteView && !this.isEditing" class="action-wrapper" (click)="isEditing = true; newNoteValueControl.setValue(this.music.slice(selectedNote?.startChar, selectedNote?.endChar)?.trim() || '');">
+        <img class="control-button"
+             src="assets/img/edit.svg" alt="Edit">
       </div>
 
-      <div class="action-editor">
-        <input [formControl]="newNoteValueControl"
-               type="text">
-      </div>
-
-      <div class="action-wrapper" style="padding: 0; border: 0; width: auto; min-width: 62px">
-        <div *ngIf="newNoteValueControl.valid" class="action-wrapper" (click)="saveChanges()">
+      <ng-container *ngIf="this.isEditing">
+        <div class="action-wrapper" (click)="cancelEditor()">
           <img class="control-button"
-               src="assets/img/tick.png" alt="Cancel">
+               src="assets/img/cross.png" alt="Save">
         </div>
-      </div>
-    </ng-container>
-  </div>
-  <div class="music-editor">
-    	<textarea #musicInput name="musicInput" id="musicInput" cols="80" rows="8"
-                (keydown)="isMobileView ? onMusicChange() : null">
-        {{this.music}}
-      </textarea>
-<!--    <div>-->
-<!--      <audio controls>-->
-<!--        <source src="/static/bad_romanse.mp3" type="audio/mp3">-->
-<!--      </audio>-->
-<!--    </div>-->
-  </div>
-  <div id="warnings"></div>
+
+        <div class="action-editor">
+          <input [formControl]="newNoteValueControl"
+                 type="text">
+        </div>
+
+        <div class="action-wrapper" style="padding: 0; border: 0; width: auto; min-width: 62px">
+          <div *ngIf="newNoteValueControl.valid" class="action-wrapper" (click)="saveChanges()">
+            <img class="control-button"
+                 src="assets/img/tick.png" alt="Cancel">
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="music-editor">
+        <textarea #musicInput name="musicInput" id="musicInput" cols="80" rows="8"
+                  (keydown)="isMobileView ? onMusicChange() : null">
+          {{this.music}}
+        </textarea>
+    </div>
+    <div id="warnings"></div>
+  </ng-container>
 </div>
