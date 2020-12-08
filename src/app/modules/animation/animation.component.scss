@@ -45,6 +45,35 @@
         opacity: 1.0;
       }
     }
+
+    .instrument-wrapper {
+      width: auto;
+      background-color: $background-primary-light;
+      padding: 0;
+      border: none;
+
+      .instrument {
+        padding: 4px 13px 4px 15px;
+        height: 28px;
+        border-radius: 10px;
+        border-width: 2px;
+        border-style: solid;
+        border-color: transparent;
+
+        &._selected {
+          border-color: $selection;
+        }
+
+        &:hover {
+          opacity: 1.0;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.9;
+      }
+    }
   }
 
   .music-sheet-wrapper {

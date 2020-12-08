@@ -16,6 +16,20 @@
            [src]="'assets/img/' + (isAnimationWorks ? 'pause' : 'play') + '.svg'"
            [alt]="isAnimationWorks ? 'Pause' : 'Resume'">
     </div>
+    <div class="action-wrapper instrument-wrapper">
+      <img class="control-button instrument"
+           src="assets/img/piano.svg" alt="Piano"
+           [ngClass]="{'_selected': selectedInstrument === instruments.PIANO}"
+           (click)="selectedInstrument = instruments.PIANO">
+      <img class="control-button instrument"
+           src="assets/img/violin.svg" alt="Violin"
+           [ngClass]="{'_selected': selectedInstrument === instruments.VIOLIN}"
+           (click)="selectedInstrument = instruments.VIOLIN">
+      <img class="control-button instrument"
+           src="assets/img/guitar.svg" alt="Guitar"
+           [ngClass]="{'_selected': selectedInstrument === instruments.GUITAR}"
+           (click)="selectedInstrument = instruments.GUITAR">
+    </div>
   </div>
   <div class="music-sheet-wrapper">
     <div #musicSheet id="musicSheet" class="music-sheet"></div>

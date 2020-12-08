@@ -2,9 +2,16 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild
 import {RxUnsubscribe} from '../../core/services/rx-unsubscribe';
 import abcjs from 'abcjs';
 import * as midiParser from 'midi-parser-js';
-import * as soundFont from 'soundfont-player';
+import * as soundFont from 'soundfont-player';//all instuments here https://raw.githubusercontent.com/danigb/soundfont-player/master/names/fluidR3.json
 import {Store} from '@ngxs/store';
 import {FormControl, Validators} from '@angular/forms';
+
+export enum Instruments {
+  PIANO = 'bright_acoustic_piano',
+  VIOLIN = 'violin',
+  GUITAR = 'acoustic_guitar_steel',
+}
+
 
 @Component({
   selector: 'animation',
@@ -25,6 +32,8 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
   music: string;
   selectedNote;
   selectedNoteView;
+  selectedInstrument: Instruments = Instruments.PIANO;
+  instruments = Instruments;
   cursorScroller: number;
   isMobileView: boolean = false;
   private selectedMidiFile: File;
@@ -107,8 +116,8 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
           const note = this.music.slice(midiEvent.startChar, midiEvent?.endChar)?.trim();
           if (note) {
             console.log(note);
-            soundFont.instrument(audioContext, 'acoustic_guitar_nylon').then((piano) => {
-              piano.play(note);
+            soundFont.instrument(audioContext, this.selectedInstrument).then((player) => {
+              player.play(note);
             });
           }
         }
