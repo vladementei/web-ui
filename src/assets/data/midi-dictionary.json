@@ -1,0 +1,48 @@
+{
+  "Notes": {
+    "64": {
+      "sound": "E5",
+      "display": "E"
+    },
+    "65": {
+      "sound": "F5",
+      "display": "F"
+    },
+    "67": {
+      "sound": "G5",
+      "display": "G"
+    },
+    "69": {
+      "sound": "A5",
+      "display": "A"
+    },
+    "71": {
+      "sound": "B5",
+      "display": "B"
+    },
+    "72": {
+      "sound": "C6",
+      "display": "c"
+    },
+    "74": {
+      "sound": "D6",
+      "display": "d"
+    },
+    "76": {
+      "sound": "E6",
+      "display": "e"
+    },
+    "77": {
+      "sound": "F6",
+      "display": "f"
+    }
+  },
+  "Duration": {
+    "480": {
+      "display": "4"
+    },
+    "240": {
+      "display": "2"
+    }
+  }
+}

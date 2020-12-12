@@ -5,6 +5,7 @@ import * as midiParser from 'midi-parser-js';
 import * as soundFont from 'soundfont-player';//all instuments here https://raw.githubusercontent.com/danigb/soundfont-player/master/names/fluidR3.json
 import {Store} from '@ngxs/store';
 import {FormControl, Validators} from '@angular/forms';
+import {midiToNotes} from '../../functions/midi-to-notes.function';
 
 export enum Instruments {
   PIANO = 'bright_acoustic_piano',
@@ -45,10 +46,15 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
   }
 
   ngOnInit(): void {
-    this.init();
+    this.init('G4 c4 d2 d2 d2 B2 A4 A4 A4 d4 |\n' +
+      ' d2 e2 e2 c2 B4 G4 B4 e4 e2 f2 e2 e2 |\n' +
+      ' B4 G2 G2 d2 B4 c4 |\n' +
+      ' c4 c2 d2 c2 B2 A4 A4 A4 d4 |\n' +
+      ' d2 e2 d2 c2 B2 G2 B2 e4 e2 f2 e2 d2 |\n' +
+      ' d4 A4 G2 G2 A4 d2 B4 c4 |');
   }
 
-  init(): void {
+  init(newMusic: string): void {
     console.log('init');
 
     this.isAnimationWorks = undefined;
@@ -63,12 +69,7 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
       this.timingCallbacks.stop();
     }
     this.isMobileView = this.store.selectSnapshot(state => state.root.isEmbedded);
-    this.music = this.updateMusicSheetToView('G4 c4 d2 d2 d2 B2 A4 A4 A4 d4 |\n' +
-      ' d2 e2 e2 c2 B4 G4 B4 e4 e2 f2 e2 e2 |\n' +
-      ' B4 G2 G2 d2 B4 c4 |\n' +
-      ' c4 c2 d2 c2 B2 A4 A4 A4 d4 |\n' +
-      ' d2 e2 d2 c2 B2 G2 B2 e4 e2 f2 e2 d2 |\n' +
-      ' d4 A4 G2 G2 A4 d2 B4 c4 |');
+    this.music = this.updateMusicSheetToView(newMusic);
     this.cdr.detectChanges();
 
     const abcjsParams: any = {
@@ -112,7 +113,10 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
       const reader = new FileReader();
       reader.onload = (() => {
         const midiArray = midiParser.parse(reader.result);
-        console.log(midiArray);
+        console.log('imported midi', midiArray);
+        const newMusic: string = midiToNotes(midiArray);
+        console.log('new notes', newMusic);
+        this.init(newMusic);
       });
       reader.readAsDataURL(file);
     }
