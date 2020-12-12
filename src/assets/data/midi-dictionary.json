@@ -1,5 +1,5 @@
 {
-  "Notes": {
+  "note": {
     "64": {
       "sound": "E5",
       "display": "E"
@@ -37,7 +37,7 @@
       "display": "f"
     }
   },
-  "Duration": {
+  "duration": {
     "480": {
       "display": "4"
     },
