@@ -6,6 +6,8 @@ import * as soundFont from 'soundfont-player';//all instuments here https://raw.
 import {Store} from '@ngxs/store';
 import {FormControl, Validators} from '@angular/forms';
 import {midiToNotes} from '../../functions/midi-to-notes.function';
+import * as soundKeys from '../../../assets/data/note-to-sound.json';
+
 
 export enum Instruments {
   PIANO = 'bright_acoustic_piano',
@@ -146,9 +148,11 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
         if (midiEvent) {
           const note = this.music.slice(midiEvent.startChar, midiEvent?.endChar)?.trim();
           if (note) {
-            console.log(note);
+            // @ts-ignore
+            const soundNote: string = soundKeys.default[note];
+            console.log(note, soundNote);
             soundFont.instrument(audioContext, this.selectedInstrument).then((player) => {
-              player.play(note);
+              player.play(soundNote);
             });
           }
         } else {
