@@ -42,7 +42,7 @@
     </div>
 
     <div class="file-processor action-wrapper"
-         [ngClass]="{'_big': !music}"
+         *ngIf="music"
          (click)="downloadMidi()">
       <i class="fa fas fa-file-download control-button"></i>
       <div class="file-processor-title">Download MIDI</div>

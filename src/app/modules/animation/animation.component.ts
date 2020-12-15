@@ -48,12 +48,12 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
   }
 
   ngOnInit(): void {
-    this.init('G4 c4 d2 d2 d2 B2 A4 A4 A4 d4 |\n' +
-      ' d2 e2 e2 c2 B4 G4 B4 e4 e2 f2 e2 e2 |\n' +
-      ' B4 G2 G2 d2 B4 c4 |\n' +
-      ' c4 c2 d2 c2 B2 A4 A4 A4 d4 |\n' +
-      ' d2 e2 d2 c2 B2 G2 B2 e4 e2 f2 e2 d2 |\n' +
-      ' d4 A4 G2 G2 A4 d2 B4 c4 |');
+    // this.init('G4 c4 d2 d2 d2 B2 A4 A4 A4 d4 |\n' +
+    //   ' d2 e2 e2 c2 B4 G4 B4 e4 e2 f2 e2 e2 |\n' +
+    //   ' B4 G2 G2 d2 B4 c4 |\n' +
+    //   ' c4 c2 d2 c2 B2 A4 A4 A4 d4 |\n' +
+    //   ' d2 e2 d2 c2 B2 G2 B2 e4 e2 f2 e2 d2 |\n' +
+    //   ' d4 A4 G2 G2 A4 d2 B4 c4 |');
   }
 
   init(newMusic: string): void {
