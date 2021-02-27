@@ -8,6 +8,7 @@ import {take} from 'rxjs/operators';
 export class RestService {
 
   private recognitionServerUrl;
+  private gatewayServerUrl = "http://localhost:8080";
   private readonly serverUrlsSheetId: string = '1HgBUVQrBo-UnrZ6W7-ipKgmZIMUyFXCsQ-DNCzq5BCc';
 
   constructor(private http: HttpClient) {
@@ -17,6 +18,12 @@ export class RestService {
     const formData: FormData = new FormData();
     formData.append('file', file);
     return this.http.post(this.recognitionServerUrl, formData, {responseType: 'arraybuffer'});
+  }
+
+  convertMidiToNotes(file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    return this.http.post(`${this.gatewayServerUrl}/converter/notes`, formData, {responseType: 'text'});
   }
 
   updateServerUrls(): void {

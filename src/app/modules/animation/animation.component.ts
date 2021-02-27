@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {RxUnsubscribe} from '../../core/services/rx-unsubscribe';
 import abcjs from 'abcjs';
-import * as midiParser from 'midi-parser-js';
 import * as soundFont from 'soundfont-player';//all instuments here https://raw.githubusercontent.com/danigb/soundfont-player/master/names/fluidR3.json
 import {Store} from '@ngxs/store';
 import {FormControl, Validators} from '@angular/forms';
-import {midiToNotes} from '../../functions/midi-to-notes.function';
 import * as soundKeys from '../../../assets/data/note-to-sound.json';
+import {RestService} from "../../core/services/rest-service.service";
+import {take} from "rxjs/operators";
 
 
 export enum Instruments {
@@ -43,6 +43,7 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
 
 
   constructor(private cdr: ChangeDetectorRef,
+              private restService: RestService,
               private store: Store) {
     super();
   }
@@ -112,15 +113,12 @@ export class AnimationComponent extends RxUnsubscribe implements OnInit {
 
   uploadMidi(file: File): void {
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (() => {
-        const midiArray = midiParser.parse(reader.result);
-        console.log('imported midi', midiArray);
-        const newMusic: string = midiToNotes(midiArray);
-        console.log('new notes', newMusic);
-        this.init(newMusic);
-      });
-      reader.readAsDataURL(file);
+      this.restService.convertMidiToNotes(file)
+        .pipe(take(1))
+        .subscribe((response) => {
+          console.log('new notes', response);
+          this.init(response);
+        });
     }
     this.selectedMidiFile = file;
   }
