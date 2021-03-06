@@ -1,1 +1,30 @@
-<div>LOGIN!!!!</div>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Login</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div>
+  <form action="/login" method="post">
+    <div style="display: grid; grid-row-gap: 15px" class="container">
+      <div>
+        <div>Username</div>
+        <input type="text" name="user" required>
+      </div>
+
+      <div>
+        <div>Password</div>
+        <input type="password" name="password" required>
+      </div>
+
+      <div>
+        <button type="submit">Login</button>
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+</html>
