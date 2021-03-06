@@ -22,7 +22,9 @@ export class MainComponent extends RxUnsubscribe {
     if (link.href) {
       window.open(link.href, '_blank');
     } else if (link.route) {
-      this.router.navigate([link.route]);
+      this.router.navigate([link.route]).catch(e => {
+        //TODO routing to login
+      });
     }
   }
 }

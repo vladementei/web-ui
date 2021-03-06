@@ -29,7 +29,7 @@ app.use(/.*(.js|.html|web-ui|web-ui\/|\/)$/, (req, res, next) => {
     console.log("\nJWT verification result: ", legit);
   } catch (e) {
     if (e.name === "TokenExpiredError" || e.name === "JsonWebTokenError") {
-      res.cookie('token', undefined).sendFile(path.resolve(`${__dirname}/dist/login/login.html`));
+      res.cookie('token', undefined).status(401).sendFile(path.resolve(`${__dirname}/dist/login/login.html`));
       return;
     }
   }

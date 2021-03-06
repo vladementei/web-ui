@@ -21,7 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
             if (err instanceof HttpErrorResponse) {
               if (this.checkIfTokenHasBeenExpired(err)) {
                 this.tokenService.deleteToken();
-                document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
                 sessionStorage.clear();
                 this.unsubscribe$.next();
                 return throwError(err);

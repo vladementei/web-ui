@@ -9,6 +9,14 @@ export class TokenService extends RxUnsubscribe {
 
   constructor() {
     super();
+    const tokenKey = "token=";
+    const token = document.cookie.split(";")?.find(cookie => cookie.startsWith(tokenKey))?.replace(tokenKey, "");
+    if (token) {
+      this.token = {
+        accessToken: token
+      }
+      sessionStorage.setItem("token", JSON.stringify(this.token));
+    }
   }
 
   public getToken(): Token {
@@ -16,15 +24,11 @@ export class TokenService extends RxUnsubscribe {
     if (self.token === undefined || self.token.accessToken === "") {
       self.token = JSON.parse(sessionStorage.getItem("token")) || undefined;
     }
-
-    if (self.token && Date.now() > self.token.expiryDateTime) {
-      self.deleteToken();
-    }
-
     return self.token;
   }
 
   public deleteToken(): void {
+    console.log("deleting token");
     this.token = undefined;
     sessionStorage.removeItem("token");
   }
