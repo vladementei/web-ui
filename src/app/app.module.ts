@@ -8,6 +8,9 @@ import {SharedModule} from './modules/shared/shared.module';
 import {RootState} from './core/state/root.state';
 import {NgxsModule} from '@ngxs/store';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
+import {TokenService} from "./core/services/token.service";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {TokenInterceptor} from "./interceptors/token.interceptor";
 
 @NgModule({
   declarations: [
@@ -21,7 +24,14 @@ import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
     NgxsModule.forRoot([RootState]),
     NgxsReduxDevtoolsPluginModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    TokenService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
