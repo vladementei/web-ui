@@ -83,9 +83,21 @@
     button:hover {
       background-color: slategray;
     }
+
+    .error-message {
+      color: red;
+      margin-left: 22px;
+    }
   </style>
+  <script>
+    checkErrors = () => {
+      <%if (error) { %>
+        setTimeout(() => alert('<%= error%>'), 100);
+      <%}%>
+    }
+  </script>
 </head>
-<body>
+<body onload="checkErrors()">
 <div class="container">
   <div class="app-title">
     <div style="font-size: 70px">GuidoCode</div>
@@ -107,6 +119,9 @@
 
         <div style="margin-top: 15px">
           <button type="submit">Login</button>
+<!--          <% if (error) { %>-->
+<!--            <span class="error-message"><%= error%></span>-->
+<!--          <% } %>-->
         </div>
       </div>
     </form>
