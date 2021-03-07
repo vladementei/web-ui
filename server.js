@@ -20,6 +20,10 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+app.use('/logout', (req, res) => {
+  res.cookie('token', undefined).status(200).sendFile(path.resolve(`${__dirname}/dist/login/login.html`));
+});
+
 app.use(/.*(.js|.html|web-ui|web-ui\/|\/)$/, (req, res, next) => {
   console.log(req.originalUrl);
   const token = req.cookies.token;
@@ -46,7 +50,8 @@ app.use('/login', (req, response) => {
 
   http.request(options, res => {
     res.on('data', token => {
-      response.cookie('token', token.toString()).redirect('/');
+      const redirectUrl = (req.headers && req.headers.referer && req.headers.referer.slice(req.headers.referer.indexOf('/web-ui'))) || '/'
+      response.cookie('token', token.toString()).redirect(redirectUrl);
     })
   }).on('error', () => {
     response.cookie('token', undefined).redirect('/');

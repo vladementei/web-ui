@@ -1,6 +1,6 @@
 import {Action, NgxsOnInit, State, StateContext, Store} from '@ngxs/store';
 import {Injectable} from '@angular/core';
-import {SendImage, SetEmbedded} from './root.actions';
+import {Logout, SendImage, SetEmbedded} from './root.actions';
 import {RestService} from '../services/rest-service.service';
 import {finalize, take} from 'rxjs/operators';
 import {FileService} from '../services/file.service';
@@ -51,5 +51,16 @@ export class RootState implements NgxsOnInit {
     if (ctx.getState().isEmbedded !== !!action.isEmbedded) {
       ctx.patchState({isEmbedded: !!action.isEmbedded});
     }
+  }
+
+  @Action(Logout)
+  logout(): void {
+    this.restService.logout()
+      .pipe(take(1))
+      .subscribe(loginPage => {
+        document.getElementsByTagName("html")[0].innerHTML = loginPage
+          .slice(loginPage.indexOf("<head>"))
+          .replace("</html>", "");
+      });
   }
 }

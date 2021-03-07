@@ -2,6 +2,8 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {RxUnsubscribe} from '../../../core/services/rx-unsubscribe';
 import {Router} from '@angular/router';
 import {RoutingConstants} from '../../../constants/routing.constants';
+import {Store} from "@ngxs/store";
+import {Logout} from "../../../core/state/root.actions";
 
 @Component({
   selector: 'app-header',
@@ -11,11 +13,16 @@ import {RoutingConstants} from '../../../constants/routing.constants';
 })
 export class HeaderComponent extends RxUnsubscribe {
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private store: Store) {
     super();
   }
 
   navigateHome() {
     this.router.navigate([RoutingConstants.MAIN]);
+  }
+
+  logout() {
+    this.store.dispatch(new Logout());
   }
 }

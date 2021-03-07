@@ -8,4 +8,8 @@ export class SetEmbedded {
   constructor(public isEmbedded: boolean) {
   }
 }
-
+export class Logout {
+  static readonly type = '[Root] logout'
+  constructor() {
+  }
+}

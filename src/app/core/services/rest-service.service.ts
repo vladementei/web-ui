@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {take} from 'rxjs/operators';
+import {take, tap} from 'rxjs/operators';
 
 
 @Injectable({providedIn: 'root'})
@@ -33,5 +33,13 @@ export class RestService {
         this.recognitionServerUrl = JSON.parse(res.slice(28, -2)).feed.entry[0].content['$t'];
         console.log(this.recognitionServerUrl);
       });
+  }
+
+  logout(): Observable<any> {
+    return this.http.post('/logout', null, {responseType: 'text'})
+      .pipe(tap(() => {
+        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        sessionStorage.clear();
+      }));
   }
 }
