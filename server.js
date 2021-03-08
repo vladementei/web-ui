@@ -54,7 +54,7 @@ app.use('/login', (req, response) => {
     method: 'GET'
   };
 
-  const redirectUrl = (req.headers && req.headers.referer && req.headers.referer.slice(req.headers.referer.indexOf('/web-ui'))).replace('?authError=true', '') || '/';
+  const redirectUrl = (req.headers && req.headers.referer && req.headers.referer.slice(req.headers.referer.indexOf('/web-ui') > 0 ? req.headers.referer.indexOf('/web-ui') : 0)).replace('?authError=true', '') || '/';
 
   if (!req.body.password) {
     response.cookie('token', undefined).status(401).redirect(redirectUrl + '?authError=true');
