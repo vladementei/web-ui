@@ -23,7 +23,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/logout', (req, res) => {
-  res.cookie('token', undefined).status(200).render(path.resolve(`${__dirname}/dist/login/login.html`), {error: null});
+  res.cookie('token', undefined).status(200).render(path.resolve(`${__dirname}/dist/login/login.html`), {error: null, login: true});
+});
+
+app.use('/registration', (req, res) => {
+  if (req.body.username && req.body.password) {
+    console.log(req.body);
+    //TODO registration
+    res.cookie('token', "").redirect('/');
+    return;
+  }
+  res.cookie('token', undefined).status(200).render(path.resolve(`${__dirname}/dist/login/login.html`), {error: null, login: false});
 });
 
 app.use(/.*(.js|.html|web-ui|web-ui\/|\/|web-ui\/animation|web-ui\/animation\/|web-ui\/uploading|web-ui\/uploading\/)$/, (req, res, next) => {
@@ -35,7 +45,7 @@ app.use(/.*(.js|.html|web-ui|web-ui\/|\/|web-ui\/animation|web-ui\/animation\/|w
     console.log("\nJWT verification result: ", legit);
   } catch (e) {
     if (e.name === "TokenExpiredError" || e.name === "JsonWebTokenError") {
-      let params = {error: null};
+      let params = {error: null, login: true};
       if (req.param("authError") === "true") {
         params.error = "Something went wrong!";
       }

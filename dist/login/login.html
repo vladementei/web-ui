@@ -88,6 +88,13 @@
       color: red;
       margin-left: 22px;
     }
+
+    .auth-type {
+      font-size: 18px;
+      color: darkslategrey;
+      margin: auto -40px auto auto;
+      font-family: cursive;
+    }
   </style>
   <script>
     checkErrors = () => {
@@ -105,7 +112,12 @@
     <a href="/login" class="trial">Try for free !</a>
   </div>
   <div class="form-container">
-    <form action="/login" method="post">
+    <% if (login) { %>
+      <form action="/login" method="post">
+    <% } %>
+    <% if (!login) { %>
+      <form action="/registration" method="post">
+    <% } %>
       <div style="display: grid; grid-row-gap: 15px">
         <div>
           <div class="label">Username</div>
@@ -117,8 +129,15 @@
           <input type="password" name="password" required>
         </div>
 
-        <div style="margin-top: 15px">
-          <button type="submit">Login</button>
+        <div style="margin-top: 15px; display: flex">
+          <%if (login) { %>
+            <button type="submit">Login</button>
+            <a class="auth-type" href="/registration">Sign up</a>
+          <%}%>
+          <%if (!login) { %>
+            <button type="submit">Register</button>
+            <a class="auth-type" href="/">Sign in</a>
+          <%}%>
 <!--          <% if (error) { %>-->
 <!--            <span class="error-message"><%= error%></span>-->
 <!--          <% } %>-->
