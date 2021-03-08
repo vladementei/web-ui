@@ -56,18 +56,31 @@ app.use('/login', (req, response) => {
 
   const redirectUrl = (req.headers && req.headers.referer && req.headers.referer.slice(req.headers.referer.indexOf('/web-ui') > 0 ? req.headers.referer.indexOf('/web-ui') : 0)).replace('?authError=true', '') || '/';
 
-  if (!req.body.password) {
-    response.cookie('token', undefined).status(401).redirect(redirectUrl + '?authError=true');
-    return;
+  if (req.body.username && req.body.password) {
+    options.path = '/authorization/login';
+    options.method = 'POST';
+    options.headers = {
+      'Content-Type': 'application/json',
+      'Content-Length': JSON.stringify(req.body).length
+    };
   }
 
-  http.request(options, res => {
+  const tokenRequest = http.request(options, res => {
     res.on('data', token => {
+      if (token.toString().includes('httpCode')) {
+        response.cookie('token', undefined).status(401).redirect(redirectUrl + '?authError=true');
+        return;
+      }
       response.cookie('token', token.toString()).redirect(redirectUrl);
     })
   }).on('error', () => {
     response.cookie('token', undefined).redirect('/');
-  }).end();
+  });
+
+  if (options.method === 'POST') {
+    tokenRequest.write(JSON.stringify(req.body));
+  }
+  tokenRequest.end();
 });
 
 app.use((req, res, next) => {
