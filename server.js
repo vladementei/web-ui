@@ -26,14 +26,38 @@ app.use('/logout', (req, res) => {
   res.cookie('token', undefined).status(200).render(path.resolve(`${__dirname}/dist/login/login.html`), {error: null, login: true});
 });
 
-app.use('/registration', (req, res) => {
+app.use('/registration', (req, response) => {
   if (req.body.username && req.body.password) {
-    console.log(req.body);
-    //TODO registration
-    res.cookie('token', "").redirect('/');
+    const options = {
+      hostname: 'localhost',
+      port: 8085,
+      path: '/authorization/sign-up',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': JSON.stringify(req.body).length
+      }
+    };
+    const tokenRequest = http.request(options, res => {
+      res.on('data', token => {
+        if (token.toString().includes('httpCode')) {
+          response.cookie('token', undefined).status(401).redirect('/registration');
+          return;
+        }
+        response.cookie('token', token.toString()).redirect('/');
+      })
+    }).on('error', () => {
+      response.cookie('token', undefined).redirect('/');
+    });
+
+    tokenRequest.write(JSON.stringify(req.body));
+    tokenRequest.end();
     return;
   }
-  res.cookie('token', undefined).status(200).render(path.resolve(`${__dirname}/dist/login/login.html`), {error: null, login: false});
+  response.cookie('token', undefined).status(200).render(path.resolve(`${__dirname}/dist/login/login.html`), {
+    error: null,
+    login: false
+  });
 });
 
 app.use(/.*(.js|.html|web-ui|web-ui\/|\/|web-ui\/animation|web-ui\/animation\/|web-ui\/uploading|web-ui\/uploading\/)$/, (req, res, next) => {
